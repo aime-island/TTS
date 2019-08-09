@@ -12,12 +12,12 @@ parser.add_argument("filepath", help="Path to file for splitting")
 args = parser.parse_args()
 
 data = pd.read_csv(args.filepath, header=None, names=['transcript', 'wav_filename', 'length'], sep="\t")
-data = data.drop('length', axis=1)
+x = data.drop('length', axis=1)
 
-train, val = tts(data, test_size=0.2, random_state=42)
+train, val = tts(x, test_size=0.2, random_state=42)
 
 print("Train: " + str(len(train)))
 print("Val: " + str(len(val)))
 
-train.to_csv("metadata_train.txt", encoding='utf-8', index=None, header=False)
-val.to_csv("metadata_val.txt", encoding='utf-8', index=None, header=False)
+train.to_csv("metadata_train.txt", encoding='utf-8', index=None, header=False, sep='\t')
+val.to_csv("metadata_val.txt", encoding='utf-8', index=None, header=False, sep='\t')
